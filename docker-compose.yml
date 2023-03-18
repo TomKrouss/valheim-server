@@ -1,0 +1,25 @@
+version: "3.9"
+
+volumes:
+  vhserver-data:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/gameData/valheim'
+
+services:
+  vhserver:
+    build:
+      context: .
+      args:
+        - PORT1=2456
+        - PORT2=2457
+    volumes:
+      - vhserver-data:/home/vhserver/data
+    environment:
+      - VHSERVER_PUBLIC=1
+      - VHSERVER_NAME="Pyros Valheim Server"
+      - VHSERVER_WORLD="New World"
+      - VHSERVER_PASSWORD="test"
+      - VHPLUS_VERSION=0.9.9.11
